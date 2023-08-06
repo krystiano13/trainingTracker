@@ -2,14 +2,16 @@
 import Layout from "../components/Layout.astro";
 import Background from "../components/Background.astro";
 ---
+
 <Layout>
     <Background />
     <form>
         <input type="text" placeholder="username" />
         <input type="password" placeholder="password" />
+        <input type="password" placeholder="repeat password" />
         <button>Log In</button>
     </form>
-    <a href="/register">Haven't got an account yet ?</a>
+    <a href="/login">Have got an account already ?</a>
 </Layout>
 
 <style>
