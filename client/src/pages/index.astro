@@ -1,10 +1,10 @@
 ---
 import Layout from '../components/Layout.astro';
-import Background from '../assets/gymbg.jpg';
+import Background from '../components/Background.astro';
 ---
 
 <Layout>
-	<div class="background" />
+	<Background />
 	<section class="content">
 		<h1>Training Tracker</h1>
 		<a href="/login"><button>Proceed</button></a>
@@ -22,18 +22,6 @@ import Background from '../assets/gymbg.jpg';
 	img, .content {
 		position : absolute;
 	}
-
-	.background{
-		width : 100vw;
-		height : 100vh;
-		background:
-        linear-gradient(
-          rgba(0, 0, 0, 0.6), 
-          rgba(0, 0, 0, 0.6)
-        ),
-		url('../assets/gymbg.jpg')
-    }
-	
 
 	.content {
 		z-index : 1000;

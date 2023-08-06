@@ -1,0 +1,35 @@
+---
+import Layout from "../components/Layout.astro";
+import Background from "../components/Background.astro";
+---
+<Layout>
+    <Background />
+    <form>
+        <input type="text" placeholder="username" />
+        <input type="password" placeholder="password" />
+        <button>Log In</button>
+    </form>
+</Layout>
+
+<style>
+    body {
+        display : flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form {
+        position: absolute;
+        z-index: 1000;
+
+        display : flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    input,button {
+        margin-top : 0.5rem;
+        margin-bottom : 0.5rem;
+    }
+</style>
