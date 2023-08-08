@@ -1,0 +1,28 @@
+@keyframes appearLeft {
+  from {
+    transform: translateX(-100vw);
+  }
+
+  to {
+    transform: translateX(0vw);
+  }
+}
+
+@keyframes appearRight {
+  from {
+    transform: translateX(100vw);
+  }
+
+  to {
+    transform: translateX(0vw);
+  }
+}
+
+.text {
+    animation : appearLeft 500ms;
+}
+
+.content {
+    animation-delay: 300ms;
+    animation : appearRight 500ms;
+}

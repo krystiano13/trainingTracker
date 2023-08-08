@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
+import '../animations.css';
 ---
 
 <Layout>
@@ -25,6 +26,7 @@ import Layout from '../components/Layout.astro';
 			flex-direction: column;
 		}
 
+
 		.text {
 			width : 60%;
 			height : 100%;
@@ -47,6 +49,7 @@ import Layout from '../components/Layout.astro';
 				margin-bottom : .5rem;
 				padding: 5rem;
 				padding-top : 0rem;
+				animation : appearLeft 500ms;
 			}
 
 			.text_title {
