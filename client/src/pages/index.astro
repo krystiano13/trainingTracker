@@ -5,12 +5,12 @@ import Layout from '../components/Layout.astro';
 <Layout>
 	<div class="text">
 		<h1 class="text_title">Training Tracker</h1>
-		<h2 class="text_subtitle">Control Your Progress !!!</h2>
+		<h2 class="text_subtitle">Control Your Progress</h2>
 	</div>
 	<section class="content">
 		<div class="triangle"></div>
 		<div class="content_text">
-			<h2 class="h2">Start Using an App !!!</h2>
+			<h2 class="h2">START USING AN APP</h2>
 			<button class="btn">Proceed</button>
 		</div>		
 	</section>	
@@ -74,7 +74,7 @@ import Layout from '../components/Layout.astro';
 				flex-direction: column;
 
 				.h2 {
-					font-size : 2.75rem;
+					font-size : 2.5rem;
 					margin-bottom : 3.5rem;
 				}
 
@@ -86,6 +86,17 @@ import Layout from '../components/Layout.astro';
 					font-size : 1.3rem;
 					cursor : pointer;
 					margin-bottom : 3.5rem;
+					background-color: #2c1d33;
+					border : none;
+					color : white;
+					border-radius: 2rem;
+
+					transition: background-color 250ms;
+					will-change: background-color;
+				}
+
+				.btn:hover {
+					background-color: #2baecf;
 				}
 			}
 		}
