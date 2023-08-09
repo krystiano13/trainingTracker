@@ -50,10 +50,28 @@ import Layout from "../components/Layout.astro";
     border-radius: 2rem;
     padding: 3rem;
     animation: formAppear 400ms;
+
+    @media screen and (min-width : 2400px) {
+        padding: 6rem;
+        border-radius: 4rem;
+    }
+
+    @media screen and (min-width : 3200px) {
+        padding: 9rem;
+        border-radius: 6rem;
+    }
   }
 
   form > * {
     margin-bottom: 2rem;
+
+    @media screen and (min-width : 2400px) {
+       margin-bottom: 4rem;
+    }
+
+    @media screen and (min-width : 3200px) {
+       margin-bottom: 6rem;
+    }
   }
 
   input {
@@ -66,6 +84,20 @@ import Layout from "../components/Layout.astro";
     background-color: transparent;
     color : white;
     border-bottom : solid whitesmoke 1px;
+
+    @media screen and (min-width : 2400px) {
+       font-size: 1.6rem;
+       padding: 1.5rem;
+       padding-left : 0rem;
+       padding-right : 4rem;
+    }
+
+    @media screen and (min-width : 3200px) {
+       font-size: 2.4rem;
+       padding: 2.5rem;
+       padding-left : 0rem;
+       padding-right : 8rem;
+    }
 
     transition: border-color 250ms;
     will-change: border-color;
@@ -91,6 +123,26 @@ import Layout from "../components/Layout.astro";
     background: linear-gradient(45deg, #8c0eac, #2baecf);
     color : white;
 
+    @media screen and (min-width : 2400px) {
+        padding: 0.8rem;
+        padding-right : 8rem;
+        padding-left : 8rem;
+        font-size: 1.3rem;
+        border-radius: 4rem;
+        margin-top : 2rem;
+        margin-bottom: 2rem;
+    }
+
+    @media screen and (min-width : 3200px) {
+        padding: 1.6rem;
+        padding-right : 16rem;
+        padding-left : 16rem;
+        font-size: 2.4rem;
+        border-radius: 6rem;
+        margin-top : 4rem;
+        margin-bottom: 4rem;
+    }
+
     transition: transform 250ms;
     will-change: transform;
   }
@@ -107,6 +159,16 @@ import Layout from "../components/Layout.astro";
     font-weight: 500;
     transition: color 250ms;
     cursor: pointer;
+
+    @media screen and (min-width : 2400px){
+        margin-top : 4rem;
+        font-size : 1.5rem;
+    }
+
+    @media screen and (min-width : 3200px){
+        margin-top : 6rem;
+        font-size : 2.4rem;
+    }
   }
 
   p:hover {
