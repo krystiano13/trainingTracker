@@ -6,10 +6,36 @@ import Layout from "../components/Layout.astro";
   <form class="d-flex flex-column align-items-center justify-content-center">
     <input placeholder="username" type="text" />
     <input placeholder="password" type="password" />
-    <button type="submit">Log In</button>
-    <a href="/register">Don't have an account ?</a>
+    <input id="repeat" class="d-none" placeholder="repeat password" type="password" />
+    <button id="submit" type="submit">Log In</button>
+    <p>Don't have an account ?</p>
   </form>
 </Layout>
+
+<script>
+    const modeChangeLabel:HTMLParagraphElement|null = document.querySelector('p');
+    const hiddenInput:HTMLInputElement|null = document.querySelector('#repeat');
+    const submitButton = document.querySelector('#submit');
+    let loginMode:boolean = true;
+
+    modeChangeLabel?.addEventListener('click',() => {
+        loginMode = !loginMode;
+        if(loginMode) {
+            modeChangeLabel.innerText = "Don't have an account ?";
+            hiddenInput?.classList.add("d-none");
+            if(submitButton != undefined) {
+                submitButton.innerHTML = "Log In";
+           }   
+        }
+        else {
+            modeChangeLabel.innerText = "Have an account already ?";
+            hiddenInput?.classList.remove("d-none");
+            if(submitButton != undefined) {
+                submitButton.innerHTML = "Register";
+            } 
+        }
+    });
+</script>
 
 <style>
   body {
@@ -73,16 +99,17 @@ import Layout from "../components/Layout.astro";
     transform : scale(1.02);
   }
 
-  a {
+  p {
     margin-top : 2.5rem;
     font-size : 1.15rem;
     text-decoration: none;
     color : #8c0eac;
     font-weight: 500;
     transition: color 250ms;
+    cursor: pointer;
   }
 
-  a:hover {
+  p:hover {
     color : #a026d8;
   }
 
