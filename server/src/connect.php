@@ -7,7 +7,7 @@ require_once realpath("vendor/autoload.php");
 use App\Config;
 
 final class Connect {
-    private $connection;
+    public $connection;
     private $config;
 
     private function __construct()
