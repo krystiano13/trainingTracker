@@ -23,6 +23,7 @@ import Layout from "../components/Layout.astro";
     background-color: #333;
     border-radius: 2rem;
     padding: 3rem;
+    animation: formAppear 400ms;
   }
 
   form > * {
@@ -83,6 +84,18 @@ import Layout from "../components/Layout.astro";
 
   a:hover {
     color : #a026d8;
+  }
+
+  @keyframes formAppear {
+    from {
+        opacity : 0;
+        transform: scale(0) translateY(100vh);
+    }
+
+    to {
+        opacity : 1;
+        transform: scale(1) translateY(0vh);
+    }
   }
 
 </style>
