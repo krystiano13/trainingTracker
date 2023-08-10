@@ -4,9 +4,8 @@ namespace App;
 require_once '../vendor/autoload.php';
 
 use App\Connect;
-use App\Account;
 
-class Register extends Account {
+class Register {
     private string $username;
     private string $password;
     private string $password2;
@@ -51,7 +50,17 @@ class Register extends Account {
         }
     }
 
-    public function setSecondPassword(string $name):Register {
+    public function setUsername(string $name):self {
+        $this -> username = $name;
+        return $this;
+    } 
+
+    public function setPassword(string $name):self {
+        $this -> password = password_hash($name, PASSWORD_DEFAULT);
+        return $this;
+    }
+
+    public function setSecondPassword(string $name):self {
         $this -> password2 = $name;
         return $this;
     }

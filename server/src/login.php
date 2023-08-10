@@ -3,9 +3,18 @@
 namespace App;
 require_once '../vendor/autoload.php';
 
-abstract class Account {
+use App\Connect;
+
+class Login {
     private string $username;
     private string $password;
+
+    public function validateAndLogin():bool {
+        $this -> username = htmlentities($this -> username);
+        $this -> password = htmlentities($this -> password);
+
+        
+    }
 
     public function setUsername(string $name):self {
         $this -> username = $name;
