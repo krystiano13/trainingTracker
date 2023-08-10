@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-require_once realpath('vendor/autoload.php');
+require_once '../vendor/autoload.php';
 
 use App\Connect;
 
@@ -21,26 +21,28 @@ class Register {
 
         $connect = new Connect();
         $connect -> start();
-        $connect -> connection -> prepare(
+        $query =  $connect -> connection -> prepare(
             "SELECT username from accounts WHERE username=:user"
         );
-        $connect -> connection -> bindValue(':user',$this->username);
-        $connect -> connection -> execute();
+       
+        $query -> bindValue(':user',$this->username);
+        $query -> execute();
 
-        if($connect -> connection -> rowCount() <= 0) {
+        if($query -> rowCount() <= 0) {
             return $this;
         } else return false;
     }
 
     public function create():bool {
-        $sendQuery = new Connect();
-        $sendQuery -> connection -> prepare(
-            "INSERT INTO account VALUES(NULL,:user,:pass)"
+        $secondConnection = new Connect();
+        $secondConnection -> start();
+        $sendQuery = $secondConnection -> connection -> prepare(
+            "INSERT INTO accounts VALUES(NULL,:user,:pass)"
         );
-        $sendQuery -> connection -> bindValue(':user',$this->username);
-        $sendQuery -> connection -> bindValue(':pass',$this->password);
+        $sendQuery -> bindValue(':user',$this->username);
+        $sendQuery -> bindValue(':pass',$this->password);
         
-        if($sendQuery -> connection -> execute()) {
+        if($sendQuery -> execute()) {
             return true;
         }
         else {

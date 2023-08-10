@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-require_once realpath('vendor/autoload.php');
+require_once '../vendor/autoload.php';
 
 final class Config {
     static string $host = "localhost";

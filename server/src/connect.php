@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 namespace App;
-require_once realpath("vendor/autoload.php");
+require_once '../vendor/autoload.php';
 
 use App\Config;
 
@@ -10,7 +10,7 @@ final class Connect {
     public $connection;
     private $config;
 
-    private function __construct()
+    public function __construct()
     {
         $this -> config = new Config();
     }
@@ -18,7 +18,7 @@ final class Connect {
     public function start() {
         $this -> connection = new \PDO(
             <<<CONFIG
-            mysqlhost={$this->config::$host};
+            mysql:host={$this->config::$host};
             dbname={$this->config::$dbName};
             CONFIG,
             $this->config::$user,

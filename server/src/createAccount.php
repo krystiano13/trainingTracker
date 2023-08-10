@@ -8,7 +8,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-require_once realpath('vendor/autoload.php');
+require_once '../vendor/autoload.php';
 
 use App\Register;
 
