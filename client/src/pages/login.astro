@@ -4,9 +4,9 @@ import Layout from "../components/Layout.astro";
 
 <Layout>
   <form class="d-flex flex-column align-items-center justify-content-center">
-    <input placeholder="username" type="text" />
-    <input placeholder="password" type="password" />
-    <input id="repeat" class="d-none" placeholder="repeat password" type="password" />
+    <input name="username" placeholder="username" type="text" />
+    <input name="password" placeholder="password" type="password" />
+    <input name="password2" id="repeat" class="d-none" placeholder="repeat password" type="password" />
     <button id="submit" type="submit">Log In</button>
     <p>Don't have an account ?</p>
   </form>
@@ -16,13 +16,33 @@ import Layout from "../components/Layout.astro";
     const modeChangeLabel:HTMLParagraphElement|null = document.querySelector('p');
     const hiddenInput:HTMLInputElement|null = document.querySelector('#repeat');
     const submitButton = document.querySelector('#submit');
+    const form = document.querySelector('form');
     let loginMode:boolean = true;
+    let url = 'http://localhost/trainingTracker/server/src/accessAccount.php';
+
+    const sendData = async (e : SubmitEvent) => {
+      e.preventDefault();
+      const formData = new FormData(form as HTMLFormElement | undefined);
+
+      if(loginMode) {
+        formData.delete('password2');
+      } 
+
+      await fetch(url, { method : 'post', body: formData})
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+        })
+    }
+
+    form?.addEventListener('submit',sendData);
 
     modeChangeLabel?.addEventListener('click',() => {
         loginMode = !loginMode;
         if(loginMode) {
             modeChangeLabel.innerText = "Don't have an account ?";
             hiddenInput?.classList.add("d-none");
+            url = 'http://localhost/trainingTracker/server/src/accessAccount.php';
             if(submitButton != undefined) {
                 submitButton.innerHTML = "Log In";
            }   
@@ -30,6 +50,7 @@ import Layout from "../components/Layout.astro";
         else {
             modeChangeLabel.innerText = "Have an account already ?";
             hiddenInput?.classList.remove("d-none");
+            url = 'http://localhost/trainingTracker/server/src/createAccount.php'
             if(submitButton != undefined) {
                 submitButton.innerHTML = "Register";
             } 
