@@ -40,7 +40,7 @@ class Register {
             "INSERT INTO accounts VALUES(NULL,:user,:pass)"
         );
         $sendQuery -> bindValue(':user',$this->username);
-        $sendQuery -> bindValue(':pass',$this->password);
+        $sendQuery -> bindValue(':pass',password_hash($this->password, PASSWORD_DEFAULT));
         
         if($sendQuery -> execute()) {
             return true;
@@ -56,7 +56,7 @@ class Register {
     } 
 
     public function setPassword(string $name):self {
-        $this -> password = password_hash($name, PASSWORD_DEFAULT);
+        $this -> password = $name;
         return $this;
     }
 
