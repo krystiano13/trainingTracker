@@ -1,0 +1,26 @@
+---
+import Layout from "../components/Layout.astro";
+---
+
+<Layout>
+    <h1></h1>
+    <button>Log Out</button>
+</Layout>
+
+<script>
+    const user = localStorage.getItem('user') as string | undefined;
+    const button = document.querySelector('button');
+    const h1 = document.querySelector('h1');
+
+    button?.addEventListener('click', () => {
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+    })
+
+    if(user != undefined && h1) {
+        (h1 as HTMLElement).innerHTML = user;
+    }
+    else {
+        window.location.href = '/login';
+    }
+</script>

@@ -13,12 +13,26 @@ import Layout from "../components/Layout.astro";
 </Layout>
 
 <script>
+    type successResponse = { msg? : string, user?: string, err?: string };
+
     const modeChangeLabel:HTMLParagraphElement|null = document.querySelector('p');
     const hiddenInput:HTMLInputElement|null = document.querySelector('#repeat');
     const submitButton = document.querySelector('#submit');
     const form = document.querySelector('form');
     let loginMode:boolean = true;
     let url = 'http://localhost/trainingTracker/server/src/accessAccount.php';
+
+    const useData = (data: successResponse) => {
+      if(loginMode && data.user) {
+        localStorage.setItem('user',data.user);
+        console.log(localStorage.getItem('user'));
+        //window.location.href = '/panel';
+      }
+      
+      else {
+        alert('Created an account !!!');
+      }
+    }
 
     const sendData = async (e : SubmitEvent) => {
       e.preventDefault();
@@ -31,7 +45,7 @@ import Layout from "../components/Layout.astro";
       await fetch(url, { method : 'post', body: formData})
         .then(res => res.json())
         .then(data => {
-          console.log(data);
+          useData(data);
         })
     }
 
