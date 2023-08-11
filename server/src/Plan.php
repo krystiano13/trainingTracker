@@ -9,6 +9,21 @@ class Plan {
     private string $username;
     private string $planTitle;
 
+    public function getData() {
+        $connect = new Connect();
+        $connect -> start();
+
+        $getQuery = $connect -> connection -> prepare(
+            "SELECT title,username FROM plans WHERE username=:username"
+        );
+        $getQuery -> bindValue(':username',$this -> username);
+
+        if($getQuery -> execute()) {
+            return $getQuery -> fetchAll();
+        }
+        else return false;
+    }
+
     public function sendData():bool {
         $connect = new Connect();
         $connect -> start();
