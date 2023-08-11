@@ -7,3 +7,8 @@ import UserInfo from '../components/UserInfo.astro';
     <UserInfo />
 </Layout>
 
+<script>
+    if(!localStorage.getItem("username")) {
+        window.location.href = '/login';
+    }
+</script>

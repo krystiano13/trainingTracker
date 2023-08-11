@@ -20,14 +20,29 @@ import { PanelHeading } from "../ReactComponents/panelHeading";
         width : 100vw;
         height : 60px;
 
-        background: linear-gradient(45deg, #8c0eac, #2baecf);
+        background: linear-gradient(45deg, #2baecf, #8c0eac);
 
         @media screen and (min-width : 2400px){
             height : 120px;
         }
 
+        .username {
+            color : white;
+            font-size : 1.1rem;
+            height : 100%;
+
+            display : flex;
+            align-items: center;
+
+            .icon {
+                height : 100%;
+                padding : 7%;
+            }
+        }
+
         .logout {
             background-color: #2c1d33;
+            cursor: pointer;
             border: none;
             color: white;
             border-radius: 2rem;
@@ -37,6 +52,13 @@ import { PanelHeading } from "../ReactComponents/panelHeading";
             padding-right : 1.25rem;
             margin-left : 1rem;
             margin-right : 1rem;
+
+            transition: 250ms background-color;
+            will-change: background-color;
+        }
+
+        .logout:hover {
+            background-color: #2baecf;
         }
     }
 </style>
