@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-const PanelHeading: React.FC<{ username: string }> = ({ username }) => {
+const PanelHeading = () => {
     const [user, setUser] = useState<string>('User');
 
-    useEffect(() => {
-        setUser(username);
-    }, [username])
+    React.useEffect(() => {
+        setUser(localStorage.getItem('username') as string);
+    }, []);
 
     return <h1>{ user }</h1>
 }

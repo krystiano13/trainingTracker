@@ -13,7 +13,9 @@ import Layout from "../components/Layout.astro";
 </Layout>
 
 <script>
-    import { setCookie } from '../components/cookie';
+    if(localStorage.getItem('username')) {
+      window.location.href = '/panel';
+    }
 
     type successResponse = { msg? : string, user?: string, err?: string };
     const modeChangeLabel:HTMLParagraphElement|null = document.querySelector('p');
@@ -25,7 +27,7 @@ import Layout from "../components/Layout.astro";
 
     const useData = (data: successResponse) => {
       if(loginMode && data.user) {
-        setCookie('username',data.user,24 * 60);
+        localStorage.setItem('username',data.user);
         window.location.href = '/panel';
       }
       

@@ -17,6 +17,14 @@ import "../animations.css";
   </section>
 </Layout>
 
+<script>
+
+  if(localStorage.getItem('username')) {
+      window.location.href = '/panel';
+  }
+  
+</script>
+
 <style>
   a {
     text-decoration: none;

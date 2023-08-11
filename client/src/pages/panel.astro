@@ -1,19 +1,17 @@
 ---
 import Layout from "../components/Layout.astro";
 import { PanelHeading } from '../ReactComponents/panelHeading';
-import { getCookie } from "../components/cookie";
-
-const username:string|false = getCookie("username");
 ---
 
 <Layout>
-    <PanelHeading username={username !== false ? username : 'User'} client:load />
+    <PanelHeading client:load />
     <button>Log Out</button>
 </Layout>
 
 <script>
     const button = document.querySelector('button');
     button?.addEventListener('click', () => {
+        localStorage.removeItem('username');
         window.location.href = '/login';
     })
 </script>
