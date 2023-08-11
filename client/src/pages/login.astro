@@ -4,7 +4,7 @@ import Layout from "../components/Layout.astro";
 
 <Layout>
   <form class="d-flex flex-column align-items-center justify-content-center">
-    <input name="username" placeholder="username" type="text" />
+    <input autocomplete="off" name="username" placeholder="username" type="text" />
     <input name="password" placeholder="password" type="password" />
     <input name="password2" id="repeat" class="d-none" placeholder="repeat password" type="password" />
     <button id="submit" type="submit">Log In</button>
@@ -140,8 +140,14 @@ import Layout from "../components/Layout.astro";
     will-change: border-color;
   }
 
+
+  input:scope { 
+    background-color: transparent;
+  }
+
   input:focus {
     border-color : #a026d8;
+    background-color: transparent;
   }
 
   input::placeholder {
