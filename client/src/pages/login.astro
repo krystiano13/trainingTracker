@@ -45,7 +45,7 @@ import Layout from "../components/Layout.astro";
       await fetch(url, { method : 'post', body: formData})
         .then(res => res.json())
         .then(data => {
-          useData(data);
+          console.log(data);
         })
     }
 

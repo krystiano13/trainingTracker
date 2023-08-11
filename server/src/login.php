@@ -28,6 +28,8 @@ class Login {
             
             if(password_verify($this -> password, $result[0]['password']))
                 return true;
+            else 
+                return false;
         }
 
         else {
