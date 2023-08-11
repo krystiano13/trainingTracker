@@ -1,17 +1,9 @@
 ---
 import Layout from "../components/Layout.astro";
-import { PanelHeading } from '../ReactComponents/panelHeading';
+import UserInfo from '../components/UserInfo.astro';
 ---
 
 <Layout>
-    <PanelHeading client:load />
-    <button>Log Out</button>
+    <UserInfo />
 </Layout>
 
-<script>
-    const button = document.querySelector('button');
-    button?.addEventListener('click', () => {
-        localStorage.removeItem('username');
-        window.location.href = '/login';
-    })
-</script>

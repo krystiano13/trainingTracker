@@ -1,0 +1,42 @@
+---
+import { PanelHeading } from "../ReactComponents/panelHeading";
+---
+
+<nav class="d-flex align-items-center justify-content-end">
+    <PanelHeading client:load />
+    <button class="logout">Log Out</button>
+</nav>
+
+<script>
+    const button:HTMLButtonElement|null = document.querySelector('button');
+    button?.addEventListener('click', ():void => {
+        localStorage.removeItem('username');
+        window.location.href = '/login';
+    })
+</script>
+
+<style>
+    nav {
+        width : 100vw;
+        height : 60px;
+
+        background: linear-gradient(45deg, #8c0eac, #2baecf);
+
+        @media screen and (min-width : 2400px){
+            height : 120px;
+        }
+
+        .logout {
+            background-color: #2c1d33;
+            border: none;
+            color: white;
+            border-radius: 2rem;
+            font-size : 1rem;
+            padding : 0.5rem;
+            padding-left : 1.25rem;
+            padding-right : 1.25rem;
+            margin-left : 1rem;
+            margin-right : 1rem;
+        }
+    }
+</style>
