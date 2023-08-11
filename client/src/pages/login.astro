@@ -14,7 +14,6 @@ import Layout from "../components/Layout.astro";
 
 <script>
     type successResponse = { msg? : string, user?: string, err?: string };
-
     const modeChangeLabel:HTMLParagraphElement|null = document.querySelector('p');
     const hiddenInput:HTMLInputElement|null = document.querySelector('#repeat');
     const submitButton = document.querySelector('#submit');
@@ -24,12 +23,11 @@ import Layout from "../components/Layout.astro";
 
     const useData = (data: successResponse) => {
       if(loginMode && data.user) {
-        localStorage.setItem('user',data.user);
-        console.log(localStorage.getItem('user'));
-        //window.location.href = '/panel';
+        localStorage.setItem('username', data.user);
+        window.location.href = '/panel';
       }
       
-      else {
+      else if(!data.user && data.msg) {
         alert('Created an account !!!');
       }
     }
@@ -45,7 +43,7 @@ import Layout from "../components/Layout.astro";
       await fetch(url, { method : 'post', body: formData})
         .then(res => res.json())
         .then(data => {
-          console.log(data);
+          useData(data);
         })
     }
 
