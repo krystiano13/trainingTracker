@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { username, changeUsername } from "../store/nanostore";
 
-const PanelHeading = () => {
+const PanelHeading: React.FC<{ username: string }> = ({ username }) => {
     const [user, setUser] = useState<string>('User');
 
     useEffect(() => {
-        changeUsername(localStorage.getItem("username") as string);
-        localStorage.removeItem('username');
-        setUser(username.get());
-    }, [])
+        setUser(username);
+    }, [username])
 
     return <h1>{ user }</h1>
 }
