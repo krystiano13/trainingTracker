@@ -28,10 +28,16 @@ class Plan {
         $connect = new Connect();
         $connect -> start();
 
+        $checkUser = $connect -> connection -> prepare(
+            "SELECT username from plans WHERE username=:username"
+        );
+        $checkUser->bindValue(':username',$this->username);
+        $checkUser->execute();
+
         $checkTitle = $connect -> connection -> prepare("SELECT title FROM plans WHERE title=:title");
         $checkTitle -> bindValue(':title',$this->planTitle);
         
-        if($checkTitle -> execute()) {
+        if($checkTitle -> execute() && $checkUser -> rowCount() >= 0) {
             if($checkTitle -> rowCount() > 0) return false;
 
             $sendQuery = $connect ->connection -> prepare(
