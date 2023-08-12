@@ -1,6 +1,6 @@
 .PanelContainer {
     width : 100vw;
-    min-height : calc(100vh - 60px);
+    min-height : calc(100vh - 85px);
     flex-wrap: wrap;
 
     @media screen and (min-width : 2400px) {
@@ -19,8 +19,21 @@
     border: none;
 
     transition: transform 250ms;
+
+    @media screen and (min-width : 2400px) {
+        width : 28rem;
+        height : 42rem;
+        font-size : 12rem;
+    }
+
+    @media screen and (min-width : 3200px) {
+        width : 40rem;
+        height : 68rem;
+        font-size : 16rem;
+    }
 }
 
 .PanelButton:hover {
     transform : translateY(-1rem);
 }
+
