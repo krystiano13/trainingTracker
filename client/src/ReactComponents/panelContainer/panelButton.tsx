@@ -6,12 +6,14 @@ export enum buttonTypes {
 interface PanelButtonProps {
   type: buttonTypes;
   show: () => void;
+  children?: string
 }
 
-const PanelButton: React.FC<PanelButtonProps> = ({ type, show }) => {
+const PanelButton: React.FC<PanelButtonProps> = ({ type, show, children }) => {
   return (
     <button onClick={() => show()} className="PanelButton">
       {type === buttonTypes.ADD && <span>+</span>}
+      {type === buttonTypes.SHOW && <label>{ children }</label>}
     </button>
   );
 };

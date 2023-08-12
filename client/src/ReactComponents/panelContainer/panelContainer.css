@@ -1,39 +1,67 @@
 .PanelContainer {
-    width : 100vw;
-    min-height : calc(100vh - 85px);
-    flex-wrap: wrap;
+  width: 100vw;
+  min-height: calc(100vh - 85px);
+  flex-wrap: wrap;
+
+  @media screen and (min-width: 2400px) {
+    min-height: calc(100vh - 120px);
+  }
+}
+
+.PanelButton > span {
+    font-size: 10rem;
 
     @media screen and (min-width : 2400px) {
-        min-height : calc(100vh - 120px);
+        font-size: 12rem;
+    }
+
+    @media screen and (min-width : 3200px){
+       font-size: 16rem; 
+    }
+}
+
+.PanelButton > label {
+    font-size: 5rem;
+
+    @media screen and (min-width : 2400px) {
+        font-size: 7rem;
+    }
+
+    @media screen and (min-width : 3200px){
+       font-size: 10rem; 
     }
 }
 
 .PanelButton {
-    width : 23rem;
-    height : 35rem;
-    border-radius: 3rem;
-    background: linear-gradient(45deg, #8c0eac, #2baecf);
-    font-weight: 700;
-    font-size : 10rem;
-    cursor: pointer;
-    border: none;
+  width: 23rem;
+  height: 35rem;
+  border-radius: 3rem;
+  background: linear-gradient(45deg, #8c0eac, #2baecf);
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
 
-    transition: transform 250ms;
+  transition: transform 250ms;
 
-    @media screen and (min-width : 2400px) {
-        width : 28rem;
-        height : 42rem;
-        font-size : 12rem;
+  @media screen and (min-width: 2400px) {
+    width: 28rem;
+    height: 42rem;
+  }
+
+  @media screen and (min-width: 3200px) {
+    width: 40rem;
+    height: 68rem;
+
+    span {
+      font-size: 16rem;
     }
 
-    @media screen and (min-width : 3200px) {
-        width : 40rem;
-        height : 68rem;
-        font-size : 16rem;
+    label {
+      font-size: 10rem;
     }
+  }
 }
 
 .PanelButton:hover {
-    transform : translateY(-1rem);
+  transform: translateY(-1rem);
 }
-
