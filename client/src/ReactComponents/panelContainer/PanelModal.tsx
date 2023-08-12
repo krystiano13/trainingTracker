@@ -1,12 +1,23 @@
-import React from "react";
+import type React from "react";
 import "./panelModal.css";
 
-const PanelModal = () => {
+interface ModalProps {
+    modal: boolean;
+    hideModal: () => void
+}
+
+const PanelModal: React.FC<ModalProps> = ({ modal, hideModal }) => {
   return (
-    <div className="modal-wrapper d-flex justify-content-center align-items-center">
+    <div
+      className={
+        modal
+          ? "modal-shown modal-wrapper d-flex justify-content-center align-items-center"
+          : "modal-hidden modal-wrapper d-flex justify-content-center align-items-center"
+      }
+    >
       <div className="modal-content">
         <div className="modal-bar d-flex justify-content-end align-items-center">
-          <button>X</button>
+          <button onClick={hideModal}>X</button>
         </div>
         <form className="modal-form d-flex flex-column align-items-center justify-content-center">
           <input placeholder="Training Plan Title" />

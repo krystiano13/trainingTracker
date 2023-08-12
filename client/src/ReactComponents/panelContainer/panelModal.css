@@ -1,11 +1,24 @@
 .modal-wrapper {
     width : 100vw;
-    height : 110vh;
+    height : 109vh;
     background-color: #3333337a;
     z-index : 1200;
     padding : 0;
     margin: 0;
     position: absolute;
+
+    transition: transform 250ms, opacity 250ms;
+    will-change: transform, opacity;
+}
+
+.modal-shown {
+    transform: scale(1);
+    opacity : 1;
+}
+
+.modal-hidden {
+    transform: scale(0);
+    opacity : 0;
 }
 
 .modal-content {
@@ -27,6 +40,7 @@
     background-color: #5c346e;
     border: none;
     transition: background-color 250ms;
+    font-family: 'Montserrat' , sans-serif;
 }
 
 .modal-bar > button:hover {
@@ -52,6 +66,11 @@
     background-color: transparent;
     color : white;
     border-bottom : solid whitesmoke 1px;
+    transition : border-color 250ms;
+}
+
+.modal-form > input::placeholder {
+    transform: color 250ms;
 }
 
 .modal-form > input:focus {
