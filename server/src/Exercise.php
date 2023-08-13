@@ -98,22 +98,22 @@ final class Exercise {
                 QUERY
             );
             
-            $volume = $data['volume'];
             $newVolume = $this -> exerciseData['sets'] * $this -> exerciseData['reps'] * $this -> exerciseData['weight'];
-            $progress = $newVolume / $volume * 100;
+            var_dump($data[0]['volume']);
+            $progress = $newVolume / $data[0]['volume'] * 100 - 100;
             $progressFormated = (float)number_format((float)$progress,2,'.','');
 
             if(  
                 $sendQuery -> execute(
                     array(
-                    ":id" => $data['id'],
+                    ":id" => $data[0]['id'],
                     ":plan" => $this -> plan,
                     ":name" => $this -> exerciseData['name'],
                     ":sets" => $this -> exerciseData['sets'],
                     ":reps" => $this -> exerciseData['reps'],
                     ":weight" => $this -> exerciseData['weight'],
-                    ":volume" => $this -> $newVolume,
-                    ":progress" => $this -> $progressFormated,
+                    ":volume" => $newVolume,
+                    ":progress" => $progressFormated,
                 ))
             ) {
                 return true;

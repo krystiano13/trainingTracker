@@ -13,28 +13,24 @@ if(isset($_POST)) {
 
     $exercise -> setUsername($_POST['username']);
     $exercise -> setPlan($_POST['plan']);
+    $exercise -> setId((int)$_POST['id']);
+
     $exercise -> setExerciseData(
         array(
+            "id" => $_POST['id'],
             "name" => $_POST['name'],
             "sets" => $_POST["sets"],
             "reps" => $_POST["reps"],
             "weight" => $_POST["weight"],
-            "volume" => $_POST["sets"] * $_POST['reps'] * $_POST['weight'],
-            "progress" => $_POST["progress"],
         )
     );
 
-    if($exercise -> checkIfExists()) {
-        if(!$exercise -> createExercise()) {
-            echo json_encode(['err' => 'error']);
-        }
-        else {
-            echo json_encode(['msg' => 'success']);
-        }
+    if($exercise -> updateExercise()) {
+        echo json_encode(['msg' => 'success']);
     }
     else {
         echo json_encode(['err' => 'error']);
     }
 
-    $_POST = array();
+  $_POST = array();
 }
