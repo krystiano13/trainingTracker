@@ -28,4 +28,6 @@ if(
     else {
         echo json_encode(['err' => 'error']);
     }
+
+    $_POST = array();
 }
