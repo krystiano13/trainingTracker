@@ -9,17 +9,13 @@ use App\Connect;
 final class Exercise {
     private string $username;
     private string $plan;
-    private $connect;
 
     private array $exerciseData;
 
-    public function __contruct() {
-        $this -> connect = new Connect();
-        $this -> connect -> start();
-    }
-
     public function checkIfExists() {
-        $checkQuery = $this -> connect -> connection -> prepare(
+        $connect = new Connect();
+        $connect -> start();
+        $checkQuery = $connect -> connection -> prepare(
             "SELECT username, title FROM plans WHERE username=:user AND title=:plan" 
         );
         $checkQuery -> bindValue(':user', $this -> username);
@@ -33,8 +29,10 @@ final class Exercise {
     }
 
     public function createExercise() {
-        $sendQuery = $this -> connect -> connection -> prepare(
-            "INSERT INTO exercises VALUES(NULL,:user,:plan,:sets,:reps,:weight,:volume,:progress)"
+        $connect = new Connect();
+        $connect -> start();
+        $sendQuery =  $connect -> connection -> prepare(
+            "INSERT INTO exercises VALUES(NULL,:user,:plan,:name,:sets,:reps,:weight,:volume,:progress)"
         );
 
         if(
@@ -42,6 +40,7 @@ final class Exercise {
             array(
                 ":user" => $this -> username,
                 ":plan" => $this -> plan,
+                ":name" => $this -> exerciseData['name'],
                 ":sets" => $this -> exerciseData['sets'],
                 ":reps" => $this -> exerciseData['reps'],
                 ":weight" => $this -> exerciseData['weight'],
@@ -51,6 +50,22 @@ final class Exercise {
         ) {
             return true;
         } else return false;   
+    }
+
+    public function getExercises() {
+        $connect = new Connect();
+        $connect -> start();
+        $sendQuery =  $connect -> connection -> prepare(
+            "SELECT * FROM exercises WHERE username=:user AND plan=:plan"
+        );
+
+        $sendQuery -> bindValue(":user", $this -> username);
+        $sendQuery -> bindValue(":plan", $this -> plan);
+
+        if($sendQuery -> execute()) {
+            if($sendQuery -> rowCount() <= 0) return array();
+            return $sendQuery -> fetchAll();
+        } else return false;
     }
 
     public function setUsername(string $name):void {
