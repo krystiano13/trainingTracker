@@ -1,0 +1,18 @@
+.ExercisesContainer {
+  width: 100%;
+
+  min-height: calc(100vh - 60px);
+  transform: translateY(60px);
+
+  @media screen and (min-width: 2400px) {
+    min-height: calc(100vh - 120px);
+    transform: translateY(120px);
+  }
+
+  @media screen and (max-width: 992px) {
+    min-height: calc(100vh - 120px);
+    transform: translateY(120px);
+  }
+}
+
+

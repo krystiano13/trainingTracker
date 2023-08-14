@@ -1,4 +1,5 @@
 import type { FunctionComponent } from "preact";
+import './Exercises.css';
 
 interface ExercisesProps {
   title: string;
@@ -15,7 +16,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({ title, username }) => {
       {
         method: "post",
         mode: "cors",
-        body: formData
+        body: formData,
       }
     )
       .then((res) => res.json())
@@ -24,10 +25,13 @@ const Exercises: FunctionComponent<ExercisesProps> = ({ title, username }) => {
       });
   };
 
-    return <main className="PanelContainer">
-        <h1>Test</h1>
-      <button className="mt-9" onClick={getExercisesFromDatabase}>Test Api</button>
-  </main>;
+  return (
+    <main className="PanelContainer">
+      <div className="ExercisesContainer">
+              
+      </div>
+    </main>
+  );
 };
 
 export { Exercises };
