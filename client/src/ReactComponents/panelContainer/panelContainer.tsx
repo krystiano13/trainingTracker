@@ -2,12 +2,16 @@ import { useState, useEffect } from "preact/hooks";
 import "./panelContainer.css";
 import { PanelButton, buttonTypes } from "./panelButton";
 import { PanelModal } from "./PanelModal";
+import { Exercises } from "../Exercises/Exercises";
 
 type plans = { title: string; username: string }[];
 
 const PanelContainer = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [plans, setPlans] = useState<plans>([]);
+  const [list, setList] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("User");
+  const [planTitle, setPlanTitle] = useState<string>();
 
   const handleCreatePlan = async (form: FormData) => {
     await fetch("http://localhost/trainingTracker/server/src/sendPlan.php", {
@@ -41,34 +45,44 @@ const PanelContainer = () => {
       });
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     handleGetPlans();
   }, []);
 
   return (
-    <main className="PanelContainer d-flex justify-content-evenly align-items-center">
-      <PanelModal
-        sendToApi={handleCreatePlan}
-        modal={modal}
-        hideModal={() => setModal(false)}
-      />
-      {plans.map((item) => (
-        <PanelButton
-          show={() => {
-            setModal(true);
-          }}
-          type={buttonTypes.SHOW}
-        >
-          {item.title}
-        </PanelButton>
-      ))}
-      <PanelButton
-        show={() => {
-          setModal(true);
-        }}
-        type={buttonTypes.ADD}
-      />
-    </main>
+    <>
+      {list === false && (
+        <main className="PanelContainer d-flex justify-content-evenly align-items-center">
+          <PanelModal
+            sendToApi={handleCreatePlan}
+            modal={modal}
+            hideModal={() => setModal(false)}
+          />
+          {plans.map((item) => (
+            <PanelButton
+              show={() => {
+                setList(true);
+                setPlanTitle(item.title);
+                setUsername(item.username);
+              }}
+              type={buttonTypes.SHOW}
+            >
+              {item.title}
+            </PanelButton>
+          ))}
+          <PanelButton
+            show={() => {
+              setModal(true);
+            }}
+            type={buttonTypes.ADD}
+          />
+        </main>
+      )}
+      {
+        list === true &&
+        <Exercises title={planTitle as string} username={username} />
+      }
+    </>
   );
 };
 
