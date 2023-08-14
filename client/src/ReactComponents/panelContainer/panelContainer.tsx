@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "preact/hooks";
 import "./panelContainer.css";
 import { PanelButton, buttonTypes } from "./panelButton";
 import { PanelModal } from "./PanelModal";
@@ -6,8 +6,8 @@ import { PanelModal } from "./PanelModal";
 type plans = { title: string; username: string }[];
 
 const PanelContainer = () => {
-  const [modal, setModal] = React.useState<boolean>(false);
-  const [plans, setPlans] = React.useState<plans>([]);
+  const [modal, setModal] = useState<boolean>(false);
+  const [plans, setPlans] = useState<plans>([]);
 
   const handleCreatePlan = async (form: FormData) => {
     await fetch("http://localhost/trainingTracker/server/src/sendPlan.php", {
@@ -41,7 +41,7 @@ const PanelContainer = () => {
       });
   };
 
-  React.useEffect(() => { 
+  useEffect(() => { 
     handleGetPlans();
   }, []);
 

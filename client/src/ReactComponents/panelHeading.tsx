@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 
 import userIcon from "../assets/user.png";
 
 const PanelHeading = () => {
   const [user, setUser] = useState<string>("User");
 
-  React.useEffect(() => {
+  useEffect(() => {
     setUser(localStorage.getItem("username") as string);
   }, []);
 

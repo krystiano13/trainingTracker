@@ -1,3 +1,5 @@
+import type { FunctionComponent } from 'preact';
+
 export enum buttonTypes {
   ADD,
   SHOW,
@@ -9,7 +11,7 @@ interface PanelButtonProps {
   children?: string
 }
 
-const PanelButton: React.FC<PanelButtonProps> = ({ type, show, children }) => {
+const PanelButton:FunctionComponent<PanelButtonProps> = ({ type, show, children }) => {
   return (
     <button onClick={() => show()} className="PanelButton">
       {type === buttonTypes.ADD && <span>+</span>}
