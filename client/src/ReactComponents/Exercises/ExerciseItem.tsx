@@ -12,13 +12,13 @@ interface ItemProps {
 
 const ExerciseItem: FunctionComponent<ItemProps> = (props: ItemProps) => {
   return (
-    <button className="ExeciseItem">
+    <li className="ExeciseItem">
       <div className="Items">
         {Object.entries(props).map(([key, value], i) => (
-          <span>{value}</span>
+          <div>{value}</div>
         ))}
       </div>
-    </button>
+    </li>
   );
 };
 
