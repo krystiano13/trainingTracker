@@ -2,15 +2,16 @@ import type { FunctionComponent } from "preact";
 import { useState, useEffect } from "preact/hooks";
 import "./Exercises.css";
 import { ExerciseItem } from "./ExerciseItem";
+import { ExerciseModal } from "./ExerciseModal";
 
 interface ExercisesProps {
   title: string;
   username: string;
-  hideList: () => void
+  hideList: () => void;
 }
 
 type dataType = {
-  id: number,
+  id: number;
   name: string;
   username?: string;
   plan?: string;
@@ -21,8 +22,13 @@ type dataType = {
   progress: number;
 };
 
-const Exercises: FunctionComponent<ExercisesProps> = ({ title, username, hideList }) => {
+const Exercises: FunctionComponent<ExercisesProps> = ({
+  title,
+  username,
+  hideList,
+}) => {
   const [exerciseData, setExerciseData] = useState([]);
+  const [exerciseModal, setExerciseModal] = useState<boolean>(true);
 
   const getExercisesFromDatabase = async () => {
     const formData = new FormData();
@@ -48,24 +54,32 @@ const Exercises: FunctionComponent<ExercisesProps> = ({ title, username, hideLis
   }, []);
 
   return (
-    <main className="PanelContainer">
-      <div className="ExercisesContainer d-flex justify-content-center">
-        <ul>
-          {(exerciseData as dataType[]).map((item) => (
-            <ExerciseItem
-              key={item.id}
-              title={item.name}
-              sets={item.sets}
-              reps={item.reps}
-              weight={item.weight}
-              volume={item.volume}
-              progress={item.progress}
-            />
-          ))}
-        </ul>
-        <button onClick={hideList}>Return</button>
-      </div>
-    </main>
+    <>
+      <main className="PanelContainer">
+        {exerciseModal && (
+          <ExerciseModal
+            exerciseModal={exerciseModal}
+            hideExerciseModal={() => setExerciseModal(false)}
+          />
+        )}
+        <div className="ExercisesContainer d-flex justify-content-center">
+          <ul>
+            {(exerciseData as dataType[]).map((item) => (
+              <ExerciseItem
+                key={item.id}
+                title={item.name}
+                sets={item.sets}
+                reps={item.reps}
+                weight={item.weight}
+                volume={item.volume}
+                progress={item.progress}
+              />
+            ))}
+          </ul>
+          <button onClick={hideList}>Return</button>
+        </div>
+      </main>
+    </>
   );
 };
 
