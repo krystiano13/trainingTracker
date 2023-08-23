@@ -24,6 +24,23 @@ class Plan {
         else return false;
     }
 
+    public function deleteData():bool {
+        $connect = new Connect();
+        $connect -> start();
+
+        $deleteQuery = $connect -> connection -> prepare(
+            "DELETE FROM plans WHERE title=:title"
+        );
+
+        $deleteQuery -> bindValue(':title', $this -> planTitle);
+
+        if($deleteQuery -> execute()) {
+            return true;
+        }
+
+        else return false;
+    }
+
     public function sendData():bool {
         $connect = new Connect();
         $connect -> start();
