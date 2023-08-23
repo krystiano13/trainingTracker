@@ -15,7 +15,7 @@ if(isset($_POST)) {
 
 function remove() {
     $exercise = new Exercise();
-    $exercise -> setId($_POST['id']);
+    $exercise -> setId((int)$_POST['id']);
 
     if($exercise -> deleteExercise()) {
         echo json_encode(['msg' => 'success']);

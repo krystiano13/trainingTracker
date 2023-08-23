@@ -80,7 +80,7 @@ const PanelContainer = () => {
       )}
       {
         list === true &&
-        <Exercises title={planTitle as string} username={username} />
+        <Exercises title={planTitle as string} username={username} hideList={() => setList(false)} />
       }
     </>
   );

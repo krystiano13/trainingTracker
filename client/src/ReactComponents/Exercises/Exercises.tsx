@@ -6,9 +6,11 @@ import { ExerciseItem } from "./ExerciseItem";
 interface ExercisesProps {
   title: string;
   username: string;
+  hideList: () => void
 }
 
 type dataType = {
+  id: number,
   name: string;
   username?: string;
   plan?: string;
@@ -19,8 +21,9 @@ type dataType = {
   progress: number;
 };
 
-const Exercises: FunctionComponent<ExercisesProps> = ({ title, username }) => {
+const Exercises: FunctionComponent<ExercisesProps> = ({ title, username, hideList }) => {
   const [exerciseData, setExerciseData] = useState([]);
+
   const getExercisesFromDatabase = async () => {
     const formData = new FormData();
     formData.append("plan", title);
@@ -50,6 +53,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({ title, username }) => {
         <ul>
           {(exerciseData as dataType[]).map((item) => (
             <ExerciseItem
+              key={item.id}
               title={item.name}
               sets={item.sets}
               reps={item.reps}
@@ -59,7 +63,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({ title, username }) => {
             />
           ))}
         </ul>
-        <button>Return</button>
+        <button onClick={hideList}>Return</button>
       </div>
     </main>
   );
