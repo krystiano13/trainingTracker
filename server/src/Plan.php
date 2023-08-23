@@ -29,10 +29,11 @@ class Plan {
         $connect -> start();
 
         $deleteQuery = $connect -> connection -> prepare(
-            "DELETE FROM plans WHERE title=:title"
+            "DELETE FROM plans WHERE title=:title AND username=:username"
         );
 
         $deleteQuery -> bindValue(':title', $this -> planTitle);
+        $deleteQuery -> bindValue(':username', $this -> username);
 
         if($deleteQuery -> execute()) {
             return true;
