@@ -4,7 +4,7 @@ import "./Item.css";
 interface ItemProps {
   title: string;
   sets: number;
-  reps: number;
+  repetitions: number;
   weight: number;
   volume: number;
   progress: number;

@@ -28,7 +28,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
   hideList,
 }) => {
   const [exerciseData, setExerciseData] = useState([]);
-  const [exerciseModal, setExerciseModal] = useState<boolean>(true);
+  const [exerciseModal, setExerciseModal] = useState<boolean>(false);
 
   const getExercisesFromDatabase = async () => {
     const formData = new FormData();
@@ -49,6 +49,31 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
       });
   };
 
+  const addExerciseToDatabase = async (form: HTMLFormElement | null) => {
+    if (!form) {
+      alert("Error while adding exercise to database !");
+      return;
+    }
+    const formData = new FormData(form);
+    formData.append("plan", title);
+    formData.append("username", username);
+    formData.append("progress", '0');
+
+    await fetch("http://localhost/trainingTracker/server/src/ADDExercise.php", {
+      method: "post",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.msg) {
+          alert("Exercise added properly");
+          getExercisesFromDatabase();
+        } else {
+          alert("Error while adding to database !");
+        }
+      });
+  };
+
   useEffect(() => {
     getExercisesFromDatabase();
   }, []);
@@ -60,6 +85,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
           <ExerciseModal
             exerciseModal={exerciseModal}
             hideExerciseModal={() => setExerciseModal(false)}
+            addExercise={addExerciseToDatabase}
           />
         )}
         <div className="ExercisesContainer d-flex justify-content-center">
@@ -69,12 +95,18 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
                 key={item.id}
                 title={item.name}
                 sets={item.sets}
-                reps={item.reps}
+                repetitions={item.repetitions}
                 weight={item.weight}
                 volume={item.volume}
                 progress={item.progress}
               />
             ))}
+            <li
+              onClick={() => setExerciseModal(true)}
+              className="ExeciseItem addButton"
+            >
+              <label>+</label>
+            </li>
           </ul>
           <button onClick={hideList}>Return</button>
         </div>

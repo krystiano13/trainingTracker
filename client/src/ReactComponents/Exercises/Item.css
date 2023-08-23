@@ -10,10 +10,33 @@
     border-radius: 2rem;
 }
 
-.ExeciseItem > .Items {
+.addButton {
+    height : 2rem;
+    color: white;
+    margin-top : 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    font-weight: 900;
+
+    background: linear-gradient(45deg, #8c0eac, #2baecf);
+}
+
+.addButton label {
+    margin : 0;
+    padding : 0;
+    font-size: 1.5rem;
+    color : black;
+}
+
+.ExeciseItem .Items {
     margin-top : 2rem;
     display : flex;
     justify-content: space-between;
     align-items: baseline;
     padding : 0.75rem;
 }
+
