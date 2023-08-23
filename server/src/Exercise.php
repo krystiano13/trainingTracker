@@ -29,6 +29,25 @@ final class Exercise {
         else return false;
     }
 
+    public function deleteExercise():bool {
+        $connect = new Connect();
+        $connect -> start();
+
+        $deleteQuery = $connect -> connection -> prepare(
+            "DELETE FROM exercises WHERE id=:id"
+        );
+
+        $deleteQuery -> bindValue(":id", $this -> id);
+
+        if($deleteQuery -> execute()) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+    }
+
     public function createExercise() {
         $connect = new Connect();
         $connect -> start();
