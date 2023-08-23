@@ -16,7 +16,7 @@ type dataType = {
   username?: string;
   plan?: string;
   sets: number;
-  reps: number;
+  repetitions: number;
   weight: number;
   volume: number;
   progress: number;
@@ -27,7 +27,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
   username,
   hideList,
 }) => {
-  const [exerciseData, setExerciseData] = useState([]);
+  const [exerciseData, setExerciseData] = useState<dataType[]>([]);
   const [exerciseModal, setExerciseModal] = useState<boolean>(false);
 
   const getExercisesFromDatabase = async () => {
@@ -44,8 +44,11 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.msg);
-        setExerciseData(data.msg);
+        if (data.msg) {
+          setExerciseData(data.msg);
+        } else {
+          setExerciseData([]);
+        }
       });
   };
 
@@ -57,7 +60,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
     const formData = new FormData(form);
     formData.append("plan", title);
     formData.append("username", username);
-    formData.append("progress", '0');
+    formData.append("progress", "0");
 
     await fetch("http://localhost/trainingTracker/server/src/ADDExercise.php", {
       method: "post",
@@ -76,6 +79,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
 
   useEffect(() => {
     getExercisesFromDatabase();
+    console.log(exerciseData);
   }, []);
 
   return (
@@ -90,17 +94,19 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
         )}
         <div className="ExercisesContainer d-flex justify-content-center">
           <ul>
-            {(exerciseData as dataType[]).map((item) => (
-              <ExerciseItem
-                key={item.id}
-                title={item.name}
-                sets={item.sets}
-                repetitions={item.repetitions}
-                weight={item.weight}
-                volume={item.volume}
-                progress={item.progress}
-              />
-            ))}
+            {exerciseData.length > 0 &&
+              exerciseData.map((item) => (
+                <ExerciseItem
+                  key={item.id}
+                  title={item.name}
+                  sets={item.sets}
+                  repetitions={item.repetitions}
+                  weight={item.weight}
+                  volume={item.volume}
+                  progress={item.progress}
+                />
+              ))}
+
             <li
               onClick={() => setExerciseModal(true)}
               className="ExeciseItem addButton"
