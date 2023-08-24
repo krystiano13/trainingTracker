@@ -10,7 +10,7 @@ interface ExercisesProps {
   hideList: () => void;
 }
 
-type dataType = {
+export type dataType = {
   id: number;
   name: string;
   username?: string;
@@ -29,6 +29,8 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
 }) => {
   const [exerciseData, setExerciseData] = useState<dataType[]>([]);
   const [exerciseModal, setExerciseModal] = useState<boolean>(false);
+  const [currentValues, setCurrentValues] = useState<dataType>();
+  const [mode, setMode] = useState<"Update" | "Add">("Add");
 
   const getExercisesFromDatabase = async () => {
     const formData = new FormData();
@@ -52,9 +54,12 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
       });
   };
 
-  const addExerciseToDatabase = async (form: HTMLFormElement | null) => {
+  const addExerciseToDatabase = async (form: HTMLFormElement | null, type: "Update" | "Add") => {
     if (!form) {
-      alert("Error while adding exercise to database !");
+      if(type === "Add")
+        alert("Error while adding exercise to database !");
+      else 
+        alert("Error while updating exercise !");
       return;
     }
     const formData = new FormData(form);
@@ -79,7 +84,6 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
 
   useEffect(() => {
     getExercisesFromDatabase();
-    console.log(exerciseData);
   }, []);
 
   return (
@@ -90,6 +94,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
             exerciseModal={exerciseModal}
             hideExerciseModal={() => setExerciseModal(false)}
             addExercise={addExerciseToDatabase}
+            mode={mode}
           />
         )}
         <div className="ExercisesContainer d-flex justify-content-center">
@@ -98,17 +103,28 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
               exerciseData.map((item) => (
                 <ExerciseItem
                   key={item.id}
+                  id={item.id}
+                  plan={item.plan}
+                  username={item.username}
                   title={item.name}
                   sets={item.sets}
                   repetitions={item.repetitions}
                   weight={item.weight}
                   volume={item.volume}
                   progress={item.progress}
+                  openModal={(data: dataType) => {
+                    setMode("Update");
+                    setCurrentValues(data);
+                    setExerciseModal(true);
+                  }}
                 />
               ))}
 
             <li
-              onClick={() => setExerciseModal(true)}
+              onClick={() => {
+                setMode("Add");
+                setExerciseModal(true);
+              }}
               className="ExeciseItem addButton"
             >
               <label>+</label>

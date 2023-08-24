@@ -1,17 +1,19 @@
 import type { FunctionComponent } from "preact";
-import { useRef } from "preact/hooks";
+import { useRef, useState } from "preact/hooks";
 import "./ExerciseModal.css";
 
 interface ExerciseModalProps {
   exerciseModal: boolean;
   hideExerciseModal: () => void;
-  addExercise: (form: HTMLFormElement | null) => void;
+  addExercise: (form: HTMLFormElement | null, type: "Update" | "Add") => void;
+  mode: "Update" | "Add",
 }
 
 const ExerciseModal: FunctionComponent<ExerciseModalProps> = ({
   exerciseModal,
   hideExerciseModal,
   addExercise,
+  mode,
 }) => {
   const formRef = useRef<HTMLFormElement>(null);
   return (
@@ -30,7 +32,7 @@ const ExerciseModal: FunctionComponent<ExerciseModalProps> = ({
           ref={formRef}
           onSubmit={(e: Event) => {
             e.preventDefault();
-            addExercise(formRef.current ? formRef.current : null);
+            addExercise(formRef.current ? formRef.current : null,mode);
           }}
           className="modal-form d-flex flex-column align-items-center justify-content-center"
         >
