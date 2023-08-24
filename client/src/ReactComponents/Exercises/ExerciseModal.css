@@ -1,11 +1,11 @@
 .modal-wrapper {
   width: 100vw;
-  height: 109vh;
+  height: 100vh;
   background-color: #3333337a;
   z-index: 1200;
   padding: 0;
   margin: 0;
-  position: absolute;
+  position: fixed;
 
   transition: transform 250ms, opacity 250ms;
   will-change: transform, opacity;
@@ -87,4 +87,8 @@
   border: none;
   font-size: 1.3rem;
   font-weight: 500;
+}
+
+h2 {
+  font-size: 2rem;
 }

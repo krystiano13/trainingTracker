@@ -3,6 +3,7 @@ import { useState, useEffect } from "preact/hooks";
 import "./Exercises.css";
 import { ExerciseItem } from "./ExerciseItem";
 import { ExerciseModal } from "./ExerciseModal";
+import { DeleteModal } from "./deleteModal";
 
 interface ExercisesProps {
   title: string;
@@ -29,6 +30,8 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
 }) => {
   const [exerciseData, setExerciseData] = useState<dataType[]>([]);
   const [exerciseModal, setExerciseModal] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [currentId, setCurrentId] = useState<number | undefined>();
   const [currentValues, setCurrentValues] = useState<dataType>();
   const [mode, setMode] = useState<"Update" | "Add">("Add");
 
@@ -70,7 +73,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
     formData.append("progress", "0");
 
     if (type === "Update" && id) {
-      formData.append('id', id.toString());
+      formData.append("id", id.toString());
     }
 
     await fetch(
@@ -100,16 +103,15 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
 
   return (
     <>
+      <DeleteModal hide={() => setDeleteModal(false)} deleteModal={deleteModal} />
+      <ExerciseModal
+        exerciseModal={exerciseModal}
+        hideExerciseModal={() => setExerciseModal(false)}
+        addExercise={addExerciseToDatabase}
+        mode={mode}
+        values={currentValues as dataType}
+      />
       <main className="PanelContainer">
-        {exerciseModal && (
-          <ExerciseModal
-            exerciseModal={exerciseModal}
-            hideExerciseModal={() => setExerciseModal(false)}
-            addExercise={addExerciseToDatabase}
-            mode={mode}
-            values={currentValues as dataType}
-          />
-        )}
         <div className="ExercisesContainer d-flex justify-content-center">
           <ul>
             <div className="ExeciseItem head">
@@ -120,6 +122,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
                 <div>Weight</div>
                 <div>Volume</div>
                 <div>Progress</div>
+                <div>Delete</div>
               </div>
             </div>
             {exerciseData.length > 0 &&
@@ -138,7 +141,13 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
                   openModal={(data: dataType) => {
                     setMode("Update");
                     setCurrentValues(data);
-                    setExerciseModal(true);
+                    if(!deleteModal)
+                      setExerciseModal(true);
+                  }}
+                  deleteModal={() => {
+                    setDeleteModal(true);
+                    setCurrentId(item.id);
+                    setExerciseModal(false);
                   }}
                 />
               ))}

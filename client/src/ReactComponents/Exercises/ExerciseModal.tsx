@@ -41,7 +41,7 @@ const ExerciseModal: FunctionComponent<ExerciseModalProps> = ({
       (formRef.current?.children[3] as HTMLInputElement).value =
         values.weight.toString();
     }
-  }, []);
+  }, [exerciseModal]);
 
   return (
     <div

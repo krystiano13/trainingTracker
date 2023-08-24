@@ -1,7 +1,7 @@
 .ExercisesContainer {
   width: 100%;
 
-  min-height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
   transform: translateY(60px);
 
   @media screen and (min-width: 2400px) {
@@ -25,10 +25,11 @@
 }
 
 .ExercisesContainer > button {
-  position: absolute;
+  position: fixed;
   justify-self: flex-end;
   align-self: flex-end;
-  margin-bottom: 1%;
+  margin-bottom: 8%;
+  z-index : 5000;
 
   padding: 0.4rem;
   padding-right: 6rem;
