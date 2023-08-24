@@ -112,6 +112,16 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
         )}
         <div className="ExercisesContainer d-flex justify-content-center">
           <ul>
+            <div className="ExeciseItem head">
+              <div className="Items">
+                <div>Name</div>
+                <div>Sets</div>
+                <div>Reps</div>
+                <div>Weight</div>
+                <div>Volume</div>
+                <div>Progress</div>
+              </div>
+            </div>
             {exerciseData.length > 0 &&
               exerciseData.map((item) => (
                 <ExerciseItem

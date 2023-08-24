@@ -34,9 +34,10 @@ const ExerciseItem: FunctionComponent<ItemProps> = (props: ItemProps) => {
       className="ExeciseItem"
     >
       <div className="Items">
-        {Object.entries(props).map(([key, value], i) => (
-          <div>{value}</div>
-        ))}
+        {Object.entries(props).map(([key, value], i) => {
+          if(key !== 'username' && key !== 'id' && key !== 'plan')
+            return <div>{value}</div>;
+        })}
       </div>
     </li>
   );
