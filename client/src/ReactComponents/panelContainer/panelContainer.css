@@ -1,6 +1,8 @@
 .PanelContainer {
   width: 100vw;
-  min-height: calc(100vh - 85px);
+  padding-top : 100px;
+  min-height : calc(100vh - 100px);
+  height: auto;
   flex-wrap: wrap;
 
   @media screen and (min-width: 2400px) {
@@ -40,6 +42,7 @@
   font-weight: 700;
   cursor: pointer;
   border: none;
+  margin-top : 2rem;
 
   transition: transform 250ms;
 
