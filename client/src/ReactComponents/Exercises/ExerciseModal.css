@@ -87,6 +87,7 @@
   border: none;
   font-size: 1.3rem;
   font-weight: 500;
+  z-index : 5000;
 }
 
 h2 {

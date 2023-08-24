@@ -89,10 +89,35 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
       })
       .then((data) => {
         if (data.msg) {
-          alert("Exercise added properly");
           getExercisesFromDatabase();
+          setExerciseModal(false);
         } else {
           alert("Error while adding to database !");
+          setExerciseModal(false);
+        }
+      });
+  };
+
+  const deleteExerciseFromDatabase = async (id: number | undefined) => {
+    if (!id) return;
+
+    const formData = new FormData();
+    formData.append("id", id.toString());
+
+    await fetch(
+      "http://localhost/trainingTracker/server/src/deleteExercise.php", {
+        method: "post",
+        body: formData
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.msg) {
+          getExercisesFromDatabase();
+          setDeleteModal(false);
+        } else {
+          alert("Error while deleting exercise");
+          setDeleteModal(false);
         }
       });
   };
@@ -103,7 +128,12 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
 
   return (
     <>
-      <DeleteModal hide={() => setDeleteModal(false)} deleteModal={deleteModal} />
+      <DeleteModal
+        currentId={currentId}
+        hide={() => setDeleteModal(false)}
+        deleteModal={deleteModal}
+        deleteEx={deleteExerciseFromDatabase}
+      />
       <ExerciseModal
         exerciseModal={exerciseModal}
         hideExerciseModal={() => setExerciseModal(false)}
@@ -141,8 +171,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
                   openModal={(data: dataType) => {
                     setMode("Update");
                     setCurrentValues(data);
-                    if(!deleteModal)
-                      setExerciseModal(true);
+                    if (!deleteModal) setExerciseModal(true);
                   }}
                   deleteModal={() => {
                     setDeleteModal(true);
