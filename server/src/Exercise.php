@@ -118,7 +118,6 @@ final class Exercise {
             );
             
             $newVolume = $this -> exerciseData['sets'] * $this -> exerciseData['reps'] * $this -> exerciseData['weight'];
-            var_dump($data[0]['volume']);
             $progress = $newVolume / $data[0]['volume'] * 100 - 100;
             $progressFormated = (float)number_format((float)$progress,2,'.','');
 

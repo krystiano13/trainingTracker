@@ -54,12 +54,14 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
       });
   };
 
-  const addExerciseToDatabase = async (form: HTMLFormElement | null, type: "Update" | "Add") => {
+  const addExerciseToDatabase = async (
+    form: HTMLFormElement | null,
+    type: "Update" | "Add",
+    id?: number
+  ) => {
     if (!form) {
-      if(type === "Add")
-        alert("Error while adding exercise to database !");
-      else 
-        alert("Error while updating exercise !");
+      if (type === "Add") alert("Error while adding exercise to database !");
+      else alert("Error while updating exercise !");
       return;
     }
     const formData = new FormData(form);
@@ -67,11 +69,21 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
     formData.append("username", username);
     formData.append("progress", "0");
 
-    await fetch("http://localhost/trainingTracker/server/src/ADDExercise.php", {
-      method: "post",
-      body: formData,
-    })
-      .then((res) => res.json())
+    if (type === "Update" && id) {
+      formData.append('id', id.toString());
+    }
+
+    await fetch(
+      `http://localhost/trainingTracker/server/src/${type}Exercise.php`,
+      {
+        method: "post",
+        body: formData,
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
       .then((data) => {
         if (data.msg) {
           alert("Exercise added properly");
@@ -95,6 +107,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
             hideExerciseModal={() => setExerciseModal(false)}
             addExercise={addExerciseToDatabase}
             mode={mode}
+            values={currentValues as dataType}
           />
         )}
         <div className="ExercisesContainer d-flex justify-content-center">
