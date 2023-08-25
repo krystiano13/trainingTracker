@@ -35,8 +35,19 @@ class Plan {
         $deleteQuery -> bindValue(':title', $this -> planTitle);
         $deleteQuery -> bindValue(':username', $this -> username);
 
-        if($deleteQuery -> execute()) {
-            return true;
+        $deleteExercises = $connect -> connection -> prepare(
+            "DELETE FROM exercises WHERE username=:username AND plan=:title"
+        );
+
+        $deleteExercises -> bindValue(':title', $this -> planTitle);
+        $deleteExercises -> bindValue(':username', $this -> username);
+
+        if($deleteExercises -> execute()) {
+            if($deleteQuery -> execute()) {
+                return true;
+            }
+
+            else return false;
         }
 
         else return false;
