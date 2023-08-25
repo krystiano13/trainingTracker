@@ -47,7 +47,7 @@ const PanelContainer = () => {
 
   useEffect(() => {
     handleGetPlans();
-  }, []);
+  }, [list]);
 
   return (
     <>

@@ -5,7 +5,8 @@ interface DeleteProps {
   deleteModal: boolean;
   hide: () => void;
   currentId: number | undefined;
-  deleteEx: (id: number | undefined) => void;
+  deleteEx: (id: number | undefined, deleteMode: "Single" | "All") => void;
+  deleteMode: "Single" | "All";
 }
 
 const DeleteModal: FunctionComponent<DeleteProps> = ({
@@ -13,6 +14,7 @@ const DeleteModal: FunctionComponent<DeleteProps> = ({
   hide,
   currentId,
   deleteEx,
+  deleteMode,
 }) => {
   return (
     <div
@@ -32,7 +34,7 @@ const DeleteModal: FunctionComponent<DeleteProps> = ({
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              deleteEx(currentId);
+              deleteEx(currentId, deleteMode);
             }}
           >
             Yes

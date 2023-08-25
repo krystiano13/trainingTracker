@@ -34,6 +34,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
   const [currentId, setCurrentId] = useState<number | undefined>();
   const [currentValues, setCurrentValues] = useState<dataType>();
   const [mode, setMode] = useState<"Update" | "Add">("Add");
+  const [deleteMode, setDeleteMode] = useState<"Single" | "All">("Single");
 
   const getExercisesFromDatabase = async () => {
     const formData = new FormData();
@@ -98,26 +99,47 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
       });
   };
 
-  const deleteExerciseFromDatabase = async (id: number | undefined) => {
-    if (!id) return;
+  const deleteExerciseFromDatabase = async (
+    id: number | undefined,
+    deleteMode: "Single" | "All"
+  ) => {
+    if (!id && deleteMode === "Single") return;
+
+    const query: string = deleteMode === "Single" ? "Exercise" : "Plan";
 
     const formData = new FormData();
-    formData.append("id", id.toString());
+    if (deleteMode === "Single" && id) {
+      formData.append("id", id.toString());
+    } else {
+      formData.append("username", username);
+      formData.append("planTitle", title);
+    }
 
     await fetch(
-      "http://localhost/trainingTracker/server/src/deleteExercise.php", {
+      `http://localhost/trainingTracker/server/src/delete${query}.php`,
+      {
         method: "post",
-        body: formData
+        body: formData,
       }
     )
       .then((res) => res.json())
       .then((data) => {
         if (data.msg) {
-          getExercisesFromDatabase();
-          setDeleteModal(false);
+          if (deleteMode === "Single") {
+            getExercisesFromDatabase();
+            setDeleteModal(false);
+          } else {
+            setDeleteModal(false);
+            hideList();
+          }
         } else {
-          alert("Error while deleting exercise");
-          setDeleteModal(false);
+          if (deleteMode === "Single") {
+            alert("Error while deleting exercise");
+            setDeleteModal(false);
+          } else {
+            alert("Error while deleting training plan");
+            setDeleteModal(false);
+          }
         }
       });
   };
@@ -132,6 +154,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
         currentId={currentId}
         hide={() => setDeleteModal(false)}
         deleteModal={deleteModal}
+        deleteMode={deleteMode}
         deleteEx={deleteExerciseFromDatabase}
       />
       <ExerciseModal
@@ -174,6 +197,7 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
                     if (!deleteModal) setExerciseModal(true);
                   }}
                   deleteModal={() => {
+                    setDeleteMode("Single");
                     setDeleteModal(true);
                     setCurrentId(item.id);
                     setExerciseModal(false);
@@ -192,7 +216,15 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
             </li>
           </ul>
           <div className="ExerciseButtons d-flex">
-            <button onClick={hideList}>Delete plan</button>
+            <button
+              onClick={() => {
+                setDeleteMode("All");
+                setDeleteModal(true);
+                setExerciseModal(false);
+              }}
+            >
+              Delete plan
+            </button>
             <button onClick={hideList}>Return</button>
           </div>
         </div>
