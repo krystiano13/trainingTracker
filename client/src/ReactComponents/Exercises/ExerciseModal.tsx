@@ -30,6 +30,12 @@ const ExerciseModal: FunctionComponent<ExerciseModalProps> = ({
   useEffect(() => {
     if (mode === "Add") {
       setDefaultValue(undefined);
+      [...(formRef.current as HTMLElement).children].forEach((item) => {
+        if (item.tagName === "INPUT") {
+          console.log(item);
+          (item as HTMLInputElement).value = "";
+        }
+      });
     } else setDefaultValue(values);
 
     if (mode === "Update") {
@@ -41,6 +47,8 @@ const ExerciseModal: FunctionComponent<ExerciseModalProps> = ({
       (formRef.current?.children[3] as HTMLInputElement).value =
         values.weight.toString();
     }
+
+
   }, [exerciseModal]);
 
   return (
