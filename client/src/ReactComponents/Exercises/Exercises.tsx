@@ -191,7 +191,10 @@ const Exercises: FunctionComponent<ExercisesProps> = ({
               <label>+</label>
             </li>
           </ul>
-          <button onClick={hideList}>Return</button>
+          <div className="ExerciseButtons d-flex">
+            <button onClick={hideList}>Delete plan</button>
+            <button onClick={hideList}>Return</button>
+          </div>
         </div>
       </main>
     </>
