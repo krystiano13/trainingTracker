@@ -22,6 +22,11 @@
 
   padding-left: 25%;
   padding-right: 25%;
+
+  @media screen and (max-width: 992px) {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 }
 
 .ExercisesContainer .ExerciseButtons > button {
@@ -31,12 +36,20 @@
   font-size: 1.15rem;
   border-radius: 2rem;
 
-  margin-left : 1rem;
+  margin-left: 1rem;
   margin-right: 1rem;
 
   border: none;
   background: linear-gradient(45deg, #8c0eac, #2baecf);
   color: white;
+
+  @media screen and (max-width: 992px) {
+    padding: 0.4rem;
+    padding-right: 5rem;
+    padding-left: 5rem;
+    font-size: 0.9rem;
+    border-radius: 2rem;
+  }
 
   @media screen and (min-width: 2400px) {
     padding: 0.8rem;
@@ -59,6 +72,10 @@
   position: fixed;
   justify-self: flex-end;
   align-self: flex-end;
-  margin-bottom: 8%;
+
   z-index: 5000;
+
+  @media screen and (max-width: 992px) {
+    margin-bottom: 16%;
+  }
 }
