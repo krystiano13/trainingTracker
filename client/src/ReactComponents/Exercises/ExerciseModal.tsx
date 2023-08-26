@@ -83,7 +83,7 @@ const ExerciseModal: FunctionComponent<ExerciseModalProps> = ({
           <input type="number" min={1} name="sets" placeholder="Sets" />
           <input type="number" min={1} name="reps" placeholder="Reps" />
           <input type="number" min={1} name="weight" placeholder="Weight" />
-          <button type="submit">Create</button>
+          <button type="submit">{ mode === "Add" ? "Create" : "Update" }</button>
         </form>
       </div>
     </div>

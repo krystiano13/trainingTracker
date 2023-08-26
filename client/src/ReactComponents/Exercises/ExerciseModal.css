@@ -9,6 +9,10 @@
 
   transition: transform 250ms, opacity 250ms;
   will-change: transform, opacity;
+
+  @media screen and (max-width : 992px) {
+    width : 100%;
+  }
 }
 
 .modal-shown {
