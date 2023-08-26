@@ -73,9 +73,12 @@
   justify-self: flex-end;
   align-self: flex-end;
 
+  margin-bottom : 15%;
+
   z-index: 5000;
 
-  @media screen and (max-width: 992px) {
-    margin-bottom: 16%;
+  @media screen and (max-width : 992px) {
+    margin-bottom : 35%;
   }
+
 }
