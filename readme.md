@@ -30,6 +30,7 @@
 <ul>
     <li>First you need to have node, npm and XAMPP installed</li>
     <li>Move server folder to htdocs folder in XAMPP installation directory</li>
+    <li>Add .sql file to your phpMyAdmin</li>
     <li>Start APACHE and MySQL server using XAMPP control panel</li>
     <li>Open client folder in terminal and run "npm install" command</li>
     <li>Next run "npm run start" command</li>
